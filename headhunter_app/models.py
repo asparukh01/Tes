@@ -47,15 +47,16 @@ class TodoTask(IsDeletedMixin):
     def __str__(self):
         return "№{} {}".format(self.pk, self.title) 
 
-class TaskType(IsDeletedMixin):
-    title = models.CharField(max_length=10, null=False, blank=False, verbose_name='Тип задачи')
+class Info(IsDeletedMixin):
+    title = models.CharField(max_length=25, null=False, blank=False, verbose_name='Название поля', validators=[MinLengthValidator(3)])
+    description = models.TextField(max_length=500, null=True, blank=True, verbose_name='Описание поля', validators=[WordLengthValidator(50)])
     
     def __str__(self):
         return f"{self.title}"
 
 
-class TaskStatus(IsDeletedMixin):
-    title = models.CharField(max_length=10, null=False, blank=False, verbose_name='Статус')
+class Category(IsDeletedMixin):
+    title = models.CharField(max_length=20, null=False, blank=False, verbose_name='Категория')
 
     def __str__(self):
         return f"{self.title}"
