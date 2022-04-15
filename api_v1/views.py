@@ -3,7 +3,7 @@ from django.views.generic import View
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from api_v1.serializers import ProjectSerializer, TaskSerializer
-from headhunter_app.models import TodoProject, TodoTask
+from headhunter_app.models import Resume, Vacancy
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 
 
@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 # Create your views here.
 class ProjectListView(APIView):
     def get(self, request, *args, **kwargs):
-        objects = TodoProject.objects.all()
+        objects = Vacancy.objects.all()
         serializer = ProjectSerializer(objects, many=True)
         return Response(serializer.data)
 
@@ -25,12 +25,12 @@ class ProjectListView(APIView):
 
 class ProjectDetailView(APIView):
     def get(self, request, *args, **kwargs):
-        object = get_object_or_404(TodoProject, pk=kwargs.get('pk'))
+        object = get_object_or_404(Vacancy, pk=kwargs.get('pk'))
         serializer = ProjectSerializer(object)
         return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
-        object = get_object_or_404(TodoProject, pk=kwargs.get('pk'))
+        object = get_object_or_404(Vacancy, pk=kwargs.get('pk'))
         serializer = ProjectSerializer(object, data=request.data)
         if serializer.is_valid():
             project = serializer.save()
@@ -39,7 +39,7 @@ class ProjectDetailView(APIView):
             return Response(serializer.errors, status=400)
 
     def delete(self, request, *args, **kwargs):
-        object = get_object_or_404(TodoProject, pk=kwargs.get('pk'))
+        object = get_object_or_404(Vacancy, pk=kwargs.get('pk'))
         object.delete()
         return Response({'deleted': kwargs.get('pk') })
 
@@ -47,7 +47,7 @@ class ProjectDetailView(APIView):
 
 class TaskListView(APIView):
     def get(self, request, *args, **kwargs):
-        objects = TodoTask.objects.all()
+        objects = Resume.objects.all()
         serializer = TaskSerializer(objects, many=True)
         return Response(serializer.data)
 
@@ -61,12 +61,12 @@ class TaskListView(APIView):
 
 class TaskDetailView(APIView):
     def get(self, request, *args, **kwargs):
-        objects = TodoTask.objects.filter(id=kwargs.get('pk'))
+        objects = Resume.objects.filter(id=kwargs.get('pk'))
         serializer = TaskSerializer(objects, many=True)
         return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
-        object = get_object_or_404(TodoTask, pk=kwargs.get('pk'))
+        object = get_object_or_404(Resume, pk=kwargs.get('pk'))
         serializer = TaskSerializer(object, data=request.data)
         if serializer.is_valid():
             task = serializer.save()
@@ -75,6 +75,6 @@ class TaskDetailView(APIView):
             return Response(serializer.errors, status=400)
 
     def delete(self, request, *args, **kwargs):
-        object = get_object_or_404(TodoTask, pk=kwargs.get('pk'))
+        object = get_object_or_404(Resume, pk=kwargs.get('pk'))
         object.delete()
         return Response({'deleted': kwargs.get('pk') })
