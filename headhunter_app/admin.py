@@ -9,18 +9,9 @@ class TodoTask_Admin(admin.ModelAdmin):
     readonly_fields = ['updated_at', 'created_at']
 
 # admin.site.register(TodoTask, TodoTask_Admin)
-admin.site.register(TodoTask)
-admin.site.register(TodoProject)
-
-class TaskType_Admin(admin.ModelAdmin):
-    list_display = ['id', 'title']
-    fields = ['title']
-
-admin.site.register(TaskType, TaskType_Admin)
-
-class TaskStatus_Admin(admin.ModelAdmin):
-    list_display = ['id', 'title']
-    fields = ['title']
-
-admin.site.register(TaskStatus, TaskStatus_Admin)
+admin.site.register(Resume)
+admin.site.register(Vacancy)
+admin.site.register(Info)
+admin.site.register(Experience)
+admin.site.register(Category)
 
