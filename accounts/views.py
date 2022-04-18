@@ -11,6 +11,7 @@ from accounts.models import Profile
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 # Create your views here.
 
+
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):
@@ -145,9 +146,10 @@ class ChangePasswordView(UpdateView):
         update_session_auth_hash(self.request, user)
         return redirect(self.get_success_url())
 
-
     def get_object(self):
         return self.model.objects.get(id=self.request.user.id)
 
     def get_success_url(self):
         return reverse('profile_detail', kwargs={'pk': self.object.pk})
+
+
